@@ -1,15 +1,33 @@
-def insertion_sort(array)
-  (1...array.length).each do |i|
-    key = array[i]
-    insert = i - 1
+###
+#
+# Sort integer arguments (ascending)
+#
+###
 
-    while insert >= 0 && array[insert] > key
-      array[insert + 1] = array[insert]
-      insert -= 1
+result = []
+
+ARGV.each do |arg|
+  # skip if not integer
+  next if arg !~ /^-?[0-9]+$/
+
+  # convert to integer
+  i_arg = arg.to_i
+
+  # insert result at the right position
+  is_inserted = false
+  i = 0
+  l = result.size
+
+  while !is_inserted && i < l
+    if result[i] < i_arg
+      i += 1
+    else
+      result.insert(i, i_arg)
+      is_inserted = true
     end
-
-    array[insert + 1] = key
   end
 
-  array
+  result << i_arg unless is_inserted
 end
+
+puts result
